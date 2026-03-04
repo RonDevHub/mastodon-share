@@ -1,13 +1,13 @@
 <?php
-// de.php
 return [
     'title' => 'Auf Mastodon teilen',
-    'instance_label' => 'Deine Instanz (z.B. mastodon.social)',
-    'share_button' => 'Jetzt Tröten!',
+    'placeholder' => 'deine-instanz.de',
+    'btn_share' => 'Tröten!',
+    'captcha_q' => 'Sicherheit: Was ist %d + %d?',
+    'err_instance' => 'Ungültige Instanz!',
+    'err_captcha' => 'Mathe ist nicht so deins, oder?',
     'forget' => 'Instanz vergessen',
-    'preview_title' => 'Vorschau Deines Beitrags',
-    'captcha_label' => 'Sicherheit: Was ist %d + %d?',
-    'error_invalid' => 'Das scheint keine gültige Mastodon-Instanz zu sein.',
-    'generator_title' => 'Button Generator',
-    'copy_link' => 'Link kopieren'
+    'gen_title' => 'Link Generator',
+    'gen_desc' => 'Kopiere diesen Link für deine Website:',
+    'preview' => 'Vorschau'
 ];
