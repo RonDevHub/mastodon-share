@@ -1,13 +1,13 @@
 <?php
 return [
-    'title' => 'Share on Mastodon',
+    'title' => '🐘Mastodon Share',
     'placeholder' => 'instance.tld',
-    'btn_share' => 'Toot!',
-    'captcha_q' => 'Security: What is %d + %d?',
-    'err_instance' => 'Invalid instance!',
-    'err_captcha' => 'Math is hard, isn\'t it?',
+    'btn_share' => 'Share Now',
+    'captcha_q' => 'Security: %d + %d = ?',
+    'err_instance' => 'Invalid Instance!',
+    'err_captcha' => 'Math check failed.',
     'forget' => 'Forget instance',
-    'gen_title' => 'Link Generator',
-    'gen_desc' => 'Copy this link for your website:',
-    'preview' => 'Preview'
+    'gen_title' => 'Generator',
+    'preview' => 'Edit post',
+    'copy_success' => 'Copied! 📋'
 ];
