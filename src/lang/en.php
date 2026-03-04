@@ -1,13 +1,13 @@
 <?php
-// en.php
 return [
     'title' => 'Share on Mastodon',
-    'instance_label' => 'Your instance (e.g. mastodon.social)',
-    'share_button' => 'Toot now!',
+    'placeholder' => 'instance.tld',
+    'btn_share' => 'Toot!',
+    'captcha_q' => 'Security: What is %d + %d?',
+    'err_instance' => 'Invalid instance!',
+    'err_captcha' => 'Math is hard, isn\'t it?',
     'forget' => 'Forget instance',
-    'preview_title' => 'Preview of your post',
-    'captcha_label' => 'Security: What is %d + %d?',
-    'error_invalid' => 'That doesn’t seem to be a valid Mastodon instance.',
-    'generator_title' => 'Button Generator',
-    'copy_link' => 'Copy link'
+    'gen_title' => 'Link Generator',
+    'gen_desc' => 'Copy this link for your website:',
+    'preview' => 'Preview'
 ];
