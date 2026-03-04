@@ -1,13 +1,7 @@
-:root {
-    --glass: rgba(255, 255, 255, 0.15);
-    --border: rgba(255, 255, 255, 0.2);
-    --text: #ffffff;
-}
-
 body {
-    background: linear-gradient(135deg, #1e3a8a, #581c87);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: radial-gradient(circle at top left, #2e1065, #020617);
+    color: white;
+    font-family: -apple-system, system-ui, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,33 +9,40 @@ body {
     margin: 0;
 }
 
-.glass-card {
-    background: var(--glass);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    width: 90%;
-    max-width: 500px;
+.glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-input, button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
+input, textarea {
     background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     color: white;
+    padding: 12px;
+    width: 100%;
+    margin: 10px 0;
+    box-sizing: border-box;
 }
 
 button {
-    background: #2b90d9;
-    font-weight: bold;
+    background: #6366f1;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    width: 100%;
     cursor: pointer;
+    font-weight: bold;
     transition: 0.3s;
 }
 
-button:hover { background: #3fa9f5; }
+button:hover { background: #4f46e5; }
+.small-text { font-size: 0.8rem; opacity: 0.6; margin-top: 20px; }
