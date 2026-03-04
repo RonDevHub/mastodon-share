@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  mastodon-share:
+    build: .
+    container_name: mastodon-share
+    restart: unless-stopped
+    networks:
+      - homelab-net
+
+networks:
+  homelab-net:
+    external: true
