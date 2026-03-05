@@ -2,18 +2,36 @@ name: Docker Build and Publish
 
 on:
   push:
-    branches:
-      - main
-      - beta
+    branches: [ main, beta ]
+  pull_request:
+    branches: [ main ]
   release:
-    types: [published]
+    types: [ published ]
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  # SCHRITT 1: Code-Prüfung
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Check PHP Syntax (Lint)
+        run: |
+          find src -name "*.php" -print0 | xargs -0 -n1 php -l
+
+  # SCHRITT 2: Bauen & Veröffentlichen (nur wenn lint erfolgreich)
   build-and-push:
+    needs: lint
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -27,23 +45,20 @@ jobs:
         uses: actions/setup-buildx-action@v3
 
       - name: Log in to the Container registry
-        uses: actions/login-as-action@v3 # Nutzt automatisch GITHUB_TOKEN
+        uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels)
+      - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            # "latest" für den Main-Branch
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
-            # "beta" für den Beta-Branch
             type=raw,value=beta,enable=${{ github.ref == 'refs/heads/beta' }}
-            # Versionsnummer beim Release (z.B. v1.0.1)
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
@@ -54,6 +69,5 @@ jobs:
           push: true
           tags: ${{ id.meta.outputs.tags }}
           labels: ${{ id.meta.outputs.labels }}
-          # Optimierung für deinen Homelab-Laptop (schnelleres Pulling)
           cache-from: type=gha
           cache-to: type=gha,mode=max
