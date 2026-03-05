@@ -23,7 +23,6 @@ Speziell für ressourcenschonendes Hosting (Docker/Portainer) entwickelt.
 **Installation:**
 1. Kopiere das Repository auf deinen Server.
 2. Starte den Stack: `docker-compose up -d`.
-3. Erreichbar im Netzwerk `homelab-net`.
 
 ---
 
@@ -41,4 +40,3 @@ Designed specifically for resource-efficient hosting.
 **Installation:**
 1. Clone the repository.
 2. Run the stack: `docker-compose up -d`.
-3. Operates within the `homelab-net` network.
