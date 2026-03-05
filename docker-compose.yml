@@ -2,12 +2,8 @@ version: '3.8'
 
 services:
   mastodon-share:
-    build: .
+    image: ghcr.io/rondevhub/mastodon-share:latest
     container_name: mastodon-share
     restart: unless-stopped
-    networks:
-      - homelab-net
-
-networks:
-  homelab-net:
-    external: true
+    ports:
+      - "9999:80"
