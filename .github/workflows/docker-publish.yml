@@ -1,0 +1,59 @@
+name: Docker Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+  release:
+    types: [published]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: actions/setup-buildx-action@v3
+
+      - name: Log in to the Container registry
+        uses: actions/login-as-action@v3 # Nutzt automatisch GITHUB_TOKEN
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            # "latest" für den Main-Branch
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            # "beta" für den Beta-Branch
+            type=raw,value=beta,enable=${{ github.ref == 'refs/heads/beta' }}
+            # Versionsnummer beim Release (z.B. v1.0.1)
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ id.meta.outputs.tags }}
+          labels: ${{ id.meta.outputs.labels }}
+          # Optimierung für deinen Homelab-Laptop (schnelleres Pulling)
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
