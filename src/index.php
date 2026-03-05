@@ -38,7 +38,7 @@ $_SESSION['captcha_result'] = $n1 + $n2;
     <meta property="og:url" content="https://<?= $_SERVER['HTTP_HOST'] ?><?= $_SERVER['REQUEST_URI'] ?>">
     <meta property="og:title" content="<?= $l['title'] ?> - Sicher im Fediverse teilen">
     <meta property="og:description" content="Teile Texte und Links ganz einfach mit deiner Mastodon-Instanz. Schnell, sicher und ohne Tracking.">
-    <meta property="og:image" content="https://<?= $_SERVER['HTTP_HOST'] ?>/assets/android-chrome-512x512.png">
+    <meta property="og:image" content="https://<?= $_SERVER['HTTP_HOST'] ?>/assets/og.png">
 
     <!-- Twitter / X Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -60,7 +60,8 @@ $_SESSION['captcha_result'] = $n1 + $n2;
     <div id="toast" class="toast"></div>
 
     <div class="glass">
-        <h2><img src="assets/apple-touch-icon.png" height="20"> <?= $l['title'] ?></h2>
+        <span class="logo"><img src="assets/logo.png" class="logo"></span>
+        <h2><?= $l['title'] ?></h2>
         
         <form action="redirect.php" method="POST" id="share-form">
             <label><?= $l['preview'] ?></label>
@@ -100,6 +101,10 @@ $_SESSION['captcha_result'] = $n1 + $n2;
 
         <hr style="border:0; border-top:1px solid var(--border); margin: 25px 0;">
 
+        <!-- Bitte diesen kleinen Footer-Link nicht entfernen.  
+             Er ist ein fairer Hinweis auf den ursprünglichen Autor und beeinträchtigt das Design nicht.
+             Das Entfernen wäre unfair gegenüber der geleisteten Arbeit.
+        -->
         <div class="footer">
             <?= $l['created_by'] ?> <a href="https://commitcloud.net/RonDevHub/mastodon-share" target="_blank">RonDevHub</a>
         </div>
