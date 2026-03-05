@@ -6,7 +6,7 @@ function verify_instance($instance) {
     $url = "https://{$instance}/api/v1/instance";
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 3); // Schneller Timeout für den Laptop
+    curl_setopt($ch, CURLOPT_TIMEOUT, 3);
     curl_setopt($ch, CURLOPT_USERAGENT, 'MastodonShareValidator/1.0');
     
     $response = curl_exec($ch);
