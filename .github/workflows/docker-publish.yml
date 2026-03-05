@@ -13,7 +13,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  # SCHRITT 1: Code-Prüfung
+  # SCHRITT 1: Code-Prüfung (Linting)
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -29,7 +29,7 @@ jobs:
         run: |
           find src -name "*.php" -print0 | xargs -0 -n1 php -l
 
-  # SCHRITT 2: Bauen & Veröffentlichen (nur wenn lint erfolgreich)
+  # SCHRITT 2: Bauen & Veröffentlichen
   build-and-push:
     needs: lint
     runs-on: ubuntu-latest
@@ -51,7 +51,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata
+      - name: Extract metadata (tags, labels)
         id: meta
         uses: docker/metadata-action@v5
         with:
@@ -67,7 +67,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ id.meta.outputs.tags }}
-          labels: ${{ id.meta.outputs.labels }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
