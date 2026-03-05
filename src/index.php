@@ -106,7 +106,7 @@ $_SESSION['captcha_result'] = $n1 + $n2;
              Das Entfernen wäre unfair gegenüber der geleisteten Arbeit.
         -->
         <div class="footer">
-            <?= $l['created_by'] ?> <a href="https://commitcloud.net/RonDevHub/mastodon-share" target="_blank">RonDevHub</a>
+            <?= $l['created_by'] ?> <a href="https://github.com/RonDevHub/mastodon-share" target="_blank">RonDevHub</a> <sup>v.1.0</sup>
         </div>
 
     </div>
