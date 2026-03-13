@@ -1,6 +1,6 @@
 <?php
 return [
-    'title' => '🐘Mastodon Share',
+    'title' => 'Mastodon Share',
     'placeholder' => 'instance.tld',
     'your_instance' => 'Your instance',
     'btn_share' => 'Share Now',
