@@ -3,6 +3,8 @@ session_start();
 require_once 'includes/functions.php';
 $lang_code = get_language();
 $l = include "lang/{$lang_code}.php";
+$captcha_config = get_captcha_config();
+ensure_captcha_config_is_valid($captcha_config);
 
 // Parameter aus URL holen
 $text = $_GET['text'] ?? '';
@@ -17,8 +19,10 @@ if (!empty($_GET['text']) && empty($_GET['url'])) {
     $full_text = trim($text . ' ' . $url);
 }
 
-$n1 = rand(2, 9); $n2 = rand(2, 9);
-$_SESSION['captcha_result'] = $n1 + $n2;
+if ($captcha_config['type'] === 'math') {
+    $n1 = rand(2, 9); $n2 = rand(2, 9);
+    $_SESSION['captcha_result'] = $n1 + $n2;
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?= $lang_code ?>">
@@ -55,6 +59,12 @@ $_SESSION['captcha_result'] = $n1 + $n2;
     <!-- Verknüpfung für alternative Sprachen (SEO Best Practice) -->
     <link rel="alternate" href="?lang=de" hreflang="de">
     <link rel="alternate" href="?lang=en" hreflang="en">
+    <?php if ($captcha_config['type'] === 'turnstile'): ?>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <?php elseif ($captcha_config['type'] === 'cap'): ?>
+    <script src="https://cdn.jsdelivr.net/npm/cap-widget@0.1.63" async defer></script>
+    <?php endif; ?>
+    <?= $captcha_config['header_code'] ?>
 </head>
 <body>
     <div id="toast" class="toast"></div>
@@ -70,10 +80,20 @@ $_SESSION['captcha_result'] = $n1 + $n2;
             <input type="text" name="instance" id="instance" placeholder="<?= $l['placeholder'] ?>" required>
             <button type="button" id="forget-btn" class="hidden" style="background:rgba(220,38,38,0.3); margin-bottom:10px;"><?= $l['forget'] ?></button>
             
+            <?php if ($captcha_config['type'] === 'math'): ?>
             <div style="margin: 15px 0;">
                 <label><?= sprintf($l['captcha_q'], $n1, $n2) ?></label>
                 <input type="number" name="captcha" required>
             </div>
+            <?php elseif ($captcha_config['type'] === 'turnstile'): ?>
+            <div style="margin: 15px 0;">
+                <div class="cf-turnstile" data-sitekey="<?= sanitize($captcha_config['turnstile_site_key']) ?>"></div>
+            </div>
+            <?php else: ?>
+            <div style="margin: 15px 0;">
+                <cap-widget required data-cap-api-endpoint="<?= sanitize($captcha_config['cap_url'] . '/' . rawurlencode($captcha_config['cap_site_key']) . '/') ?>"></cap-widget>
+            </div>
+            <?php endif; ?>
             
             <input type="text" name="real_name" class="hidden"> <!-- Honeypot -->
             <button type="submit"><?= $l['btn_share'] ?></button>
