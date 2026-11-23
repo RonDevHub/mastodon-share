@@ -126,7 +126,7 @@ if ($captcha_config['type'] === 'math') {
              Das Entfernen wäre unfair gegenüber der geleisteten Arbeit.
         -->
         <div class="footer">
-            <?= $l['created_by'] ?> <a href="https://github.com/RonDevHub/mastodon-share" target="_blank">RonDevHub</a> <sup>v.1.0</sup>
+            <?= $l['created_by'] ?> <a href="https://github.com/RonDevHub/mastodon-share" target="_blank">RonDevHub</a> <sup>v.1.1</sup>
         </div>
 
     </div>
