@@ -1,0 +1,35 @@
+name: Clean untagged GHCR versions
+
+on:
+  workflow_run:
+    workflows: ["Woodpecker"]
+    types: [completed]
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  packages: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete untagged package versions
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNER: rondevhub
+          PACKAGE: mastodon-share
+        run: |
+          set -euo pipefail
+
+          API_BASE="/users/${OWNER}/packages/container/${PACKAGE}/versions"
+
+          versions=$(gh api --paginate "${API_BASE}?per_page=100")
+
+          echo "$versions" | jq -r '.[] | select((.metadata.container.tags | length) == 0) | .id' | while read -r version_id; do
+            if [ -n "$version_id" ]; then
+              echo "Lösche ungetaggte Version ID: $version_id"
+              gh api -X DELETE "${API_BASE}/${version_id}"
+            fi
+          done
