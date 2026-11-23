@@ -6,7 +6,7 @@ return [
     'btn_share' => 'Jetzt Tröten',
     'captcha_q' => 'Sicherheit: %d + %d = ?',
     'err_instance' => 'Ungültige Instanz!',
-    'err_captcha' => 'Mathe-Check fehlgeschlagen.',
+    'err_captcha' => 'Captcha-Prüfung fehlgeschlagen.',
     'forget' => 'Instanz vergessen',
     'gen_title' => 'Generator',
     'gen_open' => 'Generator öffnen',
