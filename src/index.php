@@ -86,11 +86,11 @@ if ($captcha_config['type'] === 'math') {
                 <input type="number" name="captcha" required>
             </div>
             <?php elseif ($captcha_config['type'] === 'turnstile'): ?>
-            <div style="margin: 15px 0;">
+            <div style="margin: 15px 0; text-align: center;">
                 <div class="cf-turnstile" data-sitekey="<?= sanitize($captcha_config['turnstile_site_key']) ?>"></div>
             </div>
             <?php else: ?>
-            <div style="margin: 15px 0;">
+            <div style="margin: 15px 0; text-align: center;">
                 <cap-widget required data-cap-api-endpoint="<?= sanitize($captcha_config['cap_url'] . '/' . rawurlencode($captcha_config['cap_site_key']) . '/') ?>"></cap-widget>
             </div>
             <?php endif; ?>
