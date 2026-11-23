@@ -6,7 +6,7 @@ return [
     'btn_share' => 'Share Now',
     'captcha_q' => 'Security: %d + %d = ?',
     'err_instance' => 'Invalid Instance!',
-    'err_captcha' => 'Math check failed.',
+    'err_captcha' => 'Captcha verification failed.',
     'forget' => 'Forget instance',
     'gen_title' => 'Generator',
     'gen_open' => 'Open generator',
